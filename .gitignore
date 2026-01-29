@@ -1,4 +1,37 @@
-.vs/ 
-bin/ 
-obj/ 
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
 *.slnx
+*.VC.db
+
+# Build Folders
+bin/
+obj/
+Debug/
+Release/
+
+# Rider / JetBrains
+.idea/
+
+# OS-Dateien
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+
+# NuGet Packages
+*.nupkg
+packages/
+project.lock.json
+
+# Temporary / Cache
+*.tmp
+*.cache
+*.db
+
+# Optional: Test / output files
+TestResults/
+*.trx

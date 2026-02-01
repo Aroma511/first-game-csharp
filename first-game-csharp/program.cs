@@ -1,5 +1,5 @@
 int[] numbers = new int[4];
-
+Random rnd = new Random();
 void animation(int[] numbers, int currentNumber)
 {
     for (int i = 0; i < 3; i++)
@@ -9,7 +9,7 @@ void animation(int[] numbers, int currentNumber)
         {
             Console.Write(numbers[j] + " | ");
         }
-        Console.Write(Random.Shared.Next(0, 10));
+        Console.Write(rnd.Next(0, 10));
         Thread.Sleep(100);
         
     }
@@ -22,7 +22,7 @@ void generateNubers()
 
     for (int i = 0; i < numbers.Length; i++)
     {
-        numbers[i] = Random.Shared.Next(0, 10);
+        numbers[i] = rnd.Next(0, 10);
 
         animation(numbers, i + 1);
 

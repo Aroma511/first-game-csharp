@@ -1,5 +1,47 @@
 int[] numbers = new int[4];
+
 Random rnd = new Random();
+
+int userMoney = 100;
+int betMoney = 0;
+int goalMoney = 1000;
+
+int multiplierPairTwo = 2;
+int multiplierPairThree = 3;
+int multiplierPairFour = 4;
+
+
+void moneySytem(int moneyMultiplier)
+{
+    switch (moneyMultiplier)
+    {
+        case 0:
+            userMoney += betMoney * multiplierPairTwo;
+            break;
+
+        case 1:
+            userMoney += betMoney * multiplierPairThree;
+            break;
+
+        case 2:
+            userMoney += betMoney * multiplierPairFour;
+            break;
+
+        default:
+            userMoney -= betMoney;
+            break;
+
+    }
+    if (userMoney >= goalMoney)
+    {
+        Console.WriteLine("Game Finished");
+    }
+    else
+    {
+        Console.WriteLine("{0}/{1}", userMoney, goalMoney);
+    }
+}
+
 void animation(int[] numbers, int currentNumber)
 {
     for (int i = 0; i < 3; i++)
@@ -52,16 +94,23 @@ void checkNumbers()
     if (pairOfFour)
     {
         Console.WriteLine("You Won with Pair of four");
+        moneySytem(2);
     }
     else if (pairOfThree)
     {
         Console.WriteLine("You won with pair of Three");
+        moneySytem(1);
     }
     else if (pairOfTwo)
     {
         Console.WriteLine("You won with pair of two");
+        moneySytem(0);
     }
-
+    else
+    {
+        Console.WriteLine("You Lost");
+        moneySytem(-1);
+    }
 
 }
 void Main()
@@ -71,15 +120,38 @@ void Main()
 
     do
     {
+        bool validInput = false;
+
+        while (!validInput)
+        {
+            Console.Write("Whats your bet (0 to leave): ");
+            string input = Console.ReadLine();
+
+            if (!int.TryParse(input, out betMoney))
+            {
+                Console.WriteLine("Invalid Bet");
+                continue;
+            }
+            if (betMoney < 0 || betMoney > userMoney)
+            {
+                Console.WriteLine("Invalid Bet");
+                continue;
+            }
+            
+            validInput = true;
+        }
+
+        if (betMoney == 0)
+        {
+            break;
+        }
+        
         generateNubers();
         checkNumbers();
-        Console.WriteLine("Press Enter to play again or type exit to leave");
-        string checker = Console.ReadLine();
-        if (checker.ToLower() == "exit")
-            result = false;
-        else
-            result = true;
+
     }
-    while (result);
+    while (betMoney != 0 && userMoney > 0);
 }
 Main();
+Console.WriteLine("Press any Key to leave");
+Console.ReadKey();

@@ -1,14 +1,15 @@
-// First Comment
-int[] numbers = new int[4];
 
+
+int[] numbers = new int[4];
+numbers[0, 0, 0, 0];
 Random rnd = new Random();
 
 int userMoney = 100;
 int betMoney = 0;
 int goalMoney = 1000;
 
-string[] animationNumber = new string[4];
-string printNumber = "0";
+int animationNumber = 0;
+string[] printNumber = new string[4];
 
 int multiplierPairTwo = 2;
 int multiplierPairThree = 3;
@@ -37,11 +38,11 @@ void moneySytem(int moneyMultiplier)
     }
     if (userMoney >= goalMoney)
     {
-        //////
+        
     }
     else
     {
-        /////
+    
     }
 }
 
@@ -56,9 +57,9 @@ void animation(int[] numbers, int currentNumber)
         }
         animationNumber = rnd.Next(0, 10);
 
-        
-    }
 
+    }
+}
 void generateNubers() 
 {
     for (int i = 0; i < numbers.Length; i++)
@@ -104,65 +105,35 @@ void checkNumbers()
     }
 
 }
-void fpsFunction(userMoney, betMoney, numbers)
+void fpsFunction()
 {
-        while true 
+        while (true) 
         {
-            animation(numbers[])
-            Console.WriteLine("{1} | {2} | {3} | {4}                        {5}/{6}", printNumber[0], printNumber[1], printNumber[2], printNumber[3], userMoney, goalMoney);
-            Console.WriteLine("");
-            int input = Console.ReadLine("")
-            if (!int.TryParse(input, out betMoney))
-            {
-                // Console.WriteLine("Invalid Bet");
-                continue;
-            }
-            if (betMoney < 0 || betMoney > userMoney)
-            {
-                // Console.WriteLine("Invalid Bet");
-                continue;
-            }
-        }   
-}
-void Main()
-{
-
-    bool result = true;
-
-    do
-    {
-        bool validInput = false;
-
-        while (!validInput)
-        {
-           // Console.Write("Whats your bet (0 to leave): ");
-
-
-            if (!int.TryParse(input, out betMoney))
-            {
-               // Console.WriteLine("Invalid Bet");
-                continue;
-            }
-            if (betMoney < 0 || betMoney > userMoney)
-            {
-               // Console.WriteLine("Invalid Bet");
-                continue;
-            }
             
-            validInput = true;
-        }
-
-        if (betMoney == 0)
-        {
-            break;
-        }
-        fpsFunction();
+            Console.WriteLine
+                (
+                $"{numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}                        {userMoney}/{goalMoney}"
+                );
+            Console.Write("Bet: ");
+            string input = Console.ReadLine();
+            if (!int.TryParse(input, out betMoney))
+                {
+                    continue;
+                }
+                if (betMoney < 0 || betMoney > userMoney)
+                {
+                    continue;
+                }
         generateNubers();
         checkNumbers();
-
-    }
-    while (betMoney != 0 && userMoney > 0);
+    }   
 }
-Main();
+
+do
+{
+    fpsFunction();
+}
+while (betMoney != 0 && userMoney > 0);
+
 Console.WriteLine("Press any Key to leave");
 Console.ReadKey();

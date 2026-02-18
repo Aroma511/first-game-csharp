@@ -1,4 +1,6 @@
 // First Comment
+using System.Runtime.InteropServices;
+
 int[] numbers = new int[4];
 
 Random rnd = new Random();
@@ -10,7 +12,12 @@ int goalMoney = 1000;
 int multiplierPairTwo = 2;
 int multiplierPairThree = 3;
 int multiplierPairFour = 4;
+void fpsFunction(userMoney, betMoney, numbers)
+{
+    Console.WriteLine("{1} | {2} | {3} | {4}                        {5}/{6}");
+    Console.WriteLine("");
 
+}
 
 void moneySytem(int moneyMultiplier)
 {

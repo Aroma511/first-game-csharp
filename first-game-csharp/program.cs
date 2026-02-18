@@ -111,6 +111,17 @@ void fpsFunction(userMoney, betMoney, numbers)
             animation(numbers[])
             Console.WriteLine("{1} | {2} | {3} | {4}                        {5}/{6}", printNumber[0], printNumber[1], printNumber[2], printNumber[3], userMoney, goalMoney);
             Console.WriteLine("");
+            int input = Console.ReadLine("")
+            if (!int.TryParse(input, out betMoney))
+            {
+                // Console.WriteLine("Invalid Bet");
+                continue;
+            }
+            if (betMoney < 0 || betMoney > userMoney)
+            {
+                // Console.WriteLine("Invalid Bet");
+                continue;
+            }
         }   
 }
 void Main()
@@ -125,7 +136,7 @@ void Main()
         while (!validInput)
         {
            // Console.Write("Whats your bet (0 to leave): ");
-            string input = Console.ReadLine();
+
 
             if (!int.TryParse(input, out betMoney))
             {

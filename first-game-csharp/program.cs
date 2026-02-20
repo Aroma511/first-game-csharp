@@ -138,6 +138,9 @@ void fpsFunction()
             else if (key.Key == ConsoleKey.Backspace && betInput.Length > 0)
             {
                 betInput = betInput[..^1];
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                Console.Write(" ");
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
             }
             else if (char.IsDigit(key.KeyChar))
             {
@@ -146,6 +149,7 @@ void fpsFunction()
         }
 
         // Render
+        Console.CursorVisible = false;
         Console.SetCursorPosition(0, 0);
         Console.WriteLine(
             $"{numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}    {userMoney}/{goalMoney}"

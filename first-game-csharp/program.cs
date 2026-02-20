@@ -1,8 +1,9 @@
-
+﻿Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 int[] numbers = {0,0,0,0};
 
 Random rnd = new Random();
+
 
 string betInput = "";
 bool betFinished = false;
@@ -16,6 +17,31 @@ int multiplierPairTwo = 2;
 int multiplierPairThree = 3;
 int multiplierPairFour = 4;
 
+string UI =
+    (
+    """
+    ┌───────────────────────────┐
+    │       Slot Machine        │
+    │                           │
+    │                           │
+    │                           │     
+    │                           │
+    │                           │
+    │                           │
+    │                           │
+    └───────────────────────────┘
+    """
+    );
+string DISPLAY()
+{
+    
+    return $"""
+
+            │ {numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}     {userMoney}/{goalMoney}
+            """
+    ;
+}
+    
 void moneySytem(int moneyMultiplier)
 {
     switch (moneyMultiplier)
@@ -94,19 +120,33 @@ void playAnimation(int durationMs = 800)
 
     while (elapsed < durationMs)
     {
+       
+        
         for (int i = 0; i < numbers.Length; i++)
+        {
             numbers[i] = rnd.Next(0, 10);
+        }
+                
+        
+            
         Console.CursorVisible = false;
-        Console.SetCursorPosition(0, 0);
-        Console.WriteLine(
-            $"{numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}    {userMoney}/{goalMoney}"
-        );
+        Console.SetCursorPosition(1, 1);
+        Console.WriteLine(DISPLAY());
         Console.WriteLine();
-        Console.WriteLine("           ");
+
+       
 
         Thread.Sleep(60);
         elapsed += 60;
+        
+        
     }
+    Thread.Sleep(300);
+    betInput = "";
+    Console.SetCursorPosition(1, 8);
+    Console.WriteLine("Bet:        ");
+
+
 }
 
 void fpsFunction()
@@ -150,12 +190,18 @@ void fpsFunction()
 
         // Render
         Console.CursorVisible = false;
-        Console.SetCursorPosition(0, 0);
-        Console.WriteLine(
-            $"{numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}    {userMoney}/{goalMoney}"
-        );
-        Console.WriteLine();
-        Console.Write("Bet: " + betInput);
+        
+        Console.SetCursorPosition(1, 1);
+        Console.WriteLine(DISPLAY());
+        
+        Console.Write($"""
+            
+            
+            
+            
+            
+            │Bet: {betInput}
+            """);
 
         Thread.Sleep(8); // FPS
     }
@@ -163,10 +209,12 @@ void fpsFunction()
     generateNubers();
     checkNumbers();
 }
-
+Console.WriteLine(UI);
 do
 {
     fpsFunction();
+
+    
 }
 while (betMoney != 0 && userMoney > 0);
 

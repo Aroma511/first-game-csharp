@@ -1,9 +1,11 @@
-﻿Console.OutputEncoding = System.Text.Encoding.UTF8;
+﻿using System.Formats.Tar;
+using System.Reflection.Metadata.Ecma335;
+
+Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 int[] numbers = {0,0,0,0};
 
 Random rnd = new Random();
-
 
 string betInput = "";
 bool betFinished = false;
@@ -12,12 +14,16 @@ bool betFinished = false;
 int userMoney = 100;
 int betMoney = 0;
 int goalMoney = 1000;
+int potMoney = 0;
+
+int indicatorDisplay = 0;
 
 int multiplierPairTwo = 2;
 int multiplierPairThree = 3;
 int multiplierPairFour = 4;
-int multiplierLose = 0;
-int moneyMultipier = 0;
+int multiplierLose = -1;
+int moneyMultiplier = 0;
+int multiplier = 0;
 
 
 
@@ -29,6 +35,8 @@ string UI =
     │                           │
     │                           │
     │                           │     
+    │                           │
+    │                           │
     │                           │
     │                           │
     │                           │
@@ -61,31 +69,25 @@ string DISPLAY(int indicatorDisplay)
 
             │ {numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}     
             """;
-        case 10:
-            multiplier
-            return $"""
-
-            │ {numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}    
-            │ {userMoney}/{goalMoney} 
-            │ Pot: {betMoney} {moneyMultiplier}x
-            """;
         default:
             return $"""
 
             │ {numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}    
             │ {userMoney}/{goalMoney} 
-            │ Pot: {betMoney} 
+            │ Pot: {potMoney} {multiplier}x   
             """;
 
-    ;
+    
     }
     
 }
     
 void moneySytem(int moneyMultiplier)
 {
+    
     userMoney += betMoney * moneyMultiplier;
-
+    multiplier = moneyMultiplier;
+    potMoney = betMoney * moneyMultiplier;
 }
 
 void generateNubers() 
@@ -113,23 +115,28 @@ void checkNumbers()
 
     if (pairOfFour)
     {
+
         moneySytem(multiplierPairFour);
     }
     else if (pairOfThree)
     {
+
+
         moneySytem(multiplierPairThree);
         }
     else if (pairOfTwo)
     {
+
+
         moneySytem(multiplierPairTwo);
     }
     else
     {
-        moneySytem(multiplierLose);
+        goalMoney = goalMoney;
     }
 
 }
-void playAnimation(int durationMs = 2000)
+void playAnimation(int durationMs = 1000)
 {
     int elapsed = 0;
     int indicatorDisplay = 0;
@@ -152,12 +159,12 @@ void playAnimation(int durationMs = 2000)
             indicatorDisplay = 2;
             Console.WriteLine(DISPLAY(indicatorDisplay));
         }
-        else if (elapsed == 960)
+        else if (elapsed == 720)
         {
             indicatorDisplay = 3;
             Console.WriteLine(DISPLAY(indicatorDisplay));
         }
-        else if (elapsed == 1920)
+        else if (elapsed == 960)
         {
             indicatorDisplay = 4;
             Console.WriteLine(DISPLAY(indicatorDisplay));
@@ -177,7 +184,7 @@ void playAnimation(int durationMs = 2000)
     }
     Thread.Sleep(300);
     betInput = "";
-    Console.SetCursorPosition(1, 8);
+    Console.SetCursorPosition(1, 9);
     Console.WriteLine("Bet:        ");
 
 
@@ -198,14 +205,22 @@ void fpsFunction()
 
             if (key.Key == ConsoleKey.Enter)
             {
+                
+                
                 if (int.TryParse(betInput, out betMoney) && betMoney > 0 && betMoney <= userMoney)
                 {
                     betFinished = true;
-
+                    potMoney = betMoney;
+                    userMoney -= betMoney;
                 }
                 else
                 {
                     betInput = "";
+                    Console.SetCursorPosition(1, 9);
+                    Console.WriteLine("""
+                        Bet: 
+                        │     You have to less! 
+                        """);
                 }
             }
             else if (key.Key == ConsoleKey.Backspace && betInput.Length > 0)
@@ -238,6 +253,7 @@ void fpsFunction()
         Thread.Sleep(8); // FPS
     }
     playAnimation();
+
     //generateNubers();
     checkNumbers();
 }

@@ -16,6 +16,10 @@ int goalMoney = 1000;
 int multiplierPairTwo = 2;
 int multiplierPairThree = 3;
 int multiplierPairFour = 4;
+int multiplierLose = 0;
+int moneyMultipier = 0;
+
+
 
 string UI =
     (
@@ -32,45 +36,56 @@ string UI =
     └───────────────────────────┘
     """
     );
-string DISPLAY()
+string DISPLAY(int indicatorDisplay)
 {
-    
-    return $"""
+    Console.SetCursorPosition(1, 1);
+    switch (indicatorDisplay)
+    {
+        case 1:
+            return $"""
 
-            │ {numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}     {userMoney}/{goalMoney}
-            """
+            │ {numbers[0]} |
+            """;
+        case 2:
+            return $"""
+
+            │ {numbers[0]} | {numbers[1]} |
+            """;
+        case 3:
+            return $"""
+
+            │ {numbers[0]} | {numbers[1]} | {numbers[2]} |
+            """;
+        case 4:
+            return $"""
+
+            │ {numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}     
+            """;
+        case 10:
+            multiplier
+            return $"""
+
+            │ {numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}    
+            │ {userMoney}/{goalMoney} 
+            │ Pot: {betMoney} {moneyMultiplier}x
+            """;
+        default:
+            return $"""
+
+            │ {numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}    
+            │ {userMoney}/{goalMoney} 
+            │ Pot: {betMoney} 
+            """;
+
     ;
+    }
+    
 }
     
 void moneySytem(int moneyMultiplier)
 {
-    switch (moneyMultiplier)
-    {
-        case 0:
-            userMoney += betMoney * multiplierPairTwo;
-            break;
+    userMoney += betMoney * moneyMultiplier;
 
-        case 1:
-            userMoney += betMoney * multiplierPairThree;
-            break;
-
-        case 2:
-            userMoney += betMoney * multiplierPairFour;
-            break;
-
-        default:
-            userMoney -= betMoney;
-            break;
-
-    }
-    if (userMoney >= goalMoney)
-    {
-        
-    }
-    else
-    {
-    
-    }
 }
 
 void generateNubers() 
@@ -98,41 +113,60 @@ void checkNumbers()
 
     if (pairOfFour)
     {
-        moneySytem(2);
+        moneySytem(multiplierPairFour);
     }
     else if (pairOfThree)
     {
-        moneySytem(1);
-    }
+        moneySytem(multiplierPairThree);
+        }
     else if (pairOfTwo)
     {
-        moneySytem(0);
+        moneySytem(multiplierPairTwo);
     }
     else
     {
-        moneySytem(-1);
+        moneySytem(multiplierLose);
     }
 
 }
-void playAnimation(int durationMs = 800)
+void playAnimation(int durationMs = 2000)
 {
     int elapsed = 0;
-
+    int indicatorDisplay = 0;
     while (elapsed < durationMs)
     {
        
         
-        for (int i = 0; i < numbers.Length; i++)
+        for (int i = indicatorDisplay; i < numbers.Length; i++)
         {
             numbers[i] = rnd.Next(0, 10);
         }
                 
-        
-            
+        if (elapsed == 240)
+        {
+            indicatorDisplay = 1;
+            Console.WriteLine(DISPLAY(indicatorDisplay));
+        }
+        else if (elapsed == 480)
+        {
+            indicatorDisplay = 2;
+            Console.WriteLine(DISPLAY(indicatorDisplay));
+        }
+        else if (elapsed == 960)
+        {
+            indicatorDisplay = 3;
+            Console.WriteLine(DISPLAY(indicatorDisplay));
+        }
+        else if (elapsed == 1920)
+        {
+            indicatorDisplay = 4;
+            Console.WriteLine(DISPLAY(indicatorDisplay));
+        }
+
+
         Console.CursorVisible = false;
         Console.SetCursorPosition(1, 1);
-        Console.WriteLine(DISPLAY());
-        Console.WriteLine();
+        Console.WriteLine(DISPLAY(-1));
 
        
 
@@ -164,11 +198,10 @@ void fpsFunction()
 
             if (key.Key == ConsoleKey.Enter)
             {
-                if (int.TryParse(betInput, out betMoney) &&
-                    betMoney > 0 &&
-                    betMoney <= userMoney)
+                if (int.TryParse(betInput, out betMoney) && betMoney > 0 && betMoney <= userMoney)
                 {
                     betFinished = true;
+
                 }
                 else
                 {
@@ -192,10 +225,9 @@ void fpsFunction()
         Console.CursorVisible = false;
         
         Console.SetCursorPosition(1, 1);
-        Console.WriteLine(DISPLAY());
+        Console.WriteLine(DISPLAY(-1));
         
         Console.Write($"""
-            
             
             
             
@@ -206,7 +238,7 @@ void fpsFunction()
         Thread.Sleep(8); // FPS
     }
     playAnimation();
-    generateNubers();
+    //generateNubers();
     checkNumbers();
 }
 Console.WriteLine(UI);

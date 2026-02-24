@@ -10,6 +10,7 @@ Random rnd = new Random();
 string betInput = "";
 bool betFinished = false;
 
+string message = "";
 
 int userMoney = 100;
 int betMoney = 0;
@@ -35,6 +36,7 @@ string UI =
     │                           │
     │                           │
     │                           │     
+    │                           │
     │                           │
     │                           │
     │                           │
@@ -74,6 +76,7 @@ string DISPLAY(int indicatorDisplay)
 
             │ {numbers[0]} | {numbers[1]} | {numbers[2]} | {numbers[3]}    
             │ {userMoney}/{goalMoney} 
+            │ {message}
             │ Pot: {potMoney} {multiplier}x   
             """;
 
@@ -117,18 +120,21 @@ void checkNumbers()
     {
 
         moneySytem(multiplierPairFour);
+        message = "You won with pair of Four!";
     }
     else if (pairOfThree)
     {
 
 
         moneySytem(multiplierPairThree);
-        }
+        message = "You won with pair of Three!";
+    }
     else if (pairOfTwo)
     {
 
 
         moneySytem(multiplierPairTwo);
+        message = "You won with pair of Two";
     }
     else
     {
@@ -184,7 +190,7 @@ void playAnimation(int durationMs = 1000)
     }
     Thread.Sleep(300);
     betInput = "";
-    Console.SetCursorPosition(1, 9);
+    Console.SetCursorPosition(1, 10);
     Console.WriteLine("Bet:        ");
 
 
@@ -218,9 +224,10 @@ void fpsFunction()
                     betInput = "";
                     Console.SetCursorPosition(1, 9);
                     Console.WriteLine("""
-                        Bet: 
+                        Bet:             
                         │     You have to less! 
                         """);
+                    
                 }
             }
             else if (key.Key == ConsoleKey.Backspace && betInput.Length > 0)

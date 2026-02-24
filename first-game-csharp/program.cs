@@ -218,11 +218,13 @@ void fpsFunction()
                     betFinished = true;
                     potMoney = betMoney;
                     userMoney -= betMoney;
+                    Console.SetCursorPosition(1, 11);
+                    Console.WriteLine("                        ");
                 }
                 else
                 {
                     betInput = "";
-                    Console.SetCursorPosition(1, 9);
+                    Console.SetCursorPosition(1, 10);
                     Console.WriteLine("""
                         Bet:             
                         │     You have to less! 
